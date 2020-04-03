@@ -73,7 +73,7 @@ public:
         size_t bucket_idx = hash(key) % buckets_count;
         Node* cur = buckets[bucket_idx];
         while (cur) {
-            if (cur->key == key) {
+            if (equals(cur->key, key)) {
                 return &cur->value;
             }
             cur = cur->next;
@@ -92,8 +92,7 @@ public:
         }
         
         size_t bucket_idx = hash(key) % buckets_count;
-        Node* node = new Node(key, value, buckets[bucket_idx]);
-        buckets[bucket_idx] = node;
+        buckets[bucket_idx] = new Node(key, value, buckets[bucket_idx]);
         items_count++;
 
         return true;
@@ -108,7 +107,7 @@ public:
         Node* cur = buckets[bucket_idx];
         Node* prev = nullptr;
         while (cur) {
-            if (cur->key == key) {
+            if (equals(cur->key , key)) {
                 if (prev) {
                     prev->next = cur->next;
                 } else {
